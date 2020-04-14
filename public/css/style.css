@@ -1,0 +1,170 @@
+/*
+*
+* Stylesheet nach BEM (Block Element Modifier) Struktur
+* Siehe: http://getbem.com/introduction/
+*
+*/
+
+
+/* General (Schriftarten, Variablen etc.) */
+
+@font-face {
+    font-family: "RobotoMono";
+    src: url("../assets/fonts/RobotoMono-Regular") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoMono";
+    src: url("../assets/fonts/RobotoMono-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoMono";
+    src: url("../assets/fonts/RobotoMono-Medium.ttf") format("truetype");
+    font-weight: bolder;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoMono";
+    src: url("../assets/fonts/RobotoMono-Light.ttf") format("truetype");
+    font-weight: lighter;
+    font-style: normal;
+}
+
+:root {
+    --main-bg-color: #ffffff;
+    --main-accent-color: #c0c0c9;
+    --main-txt-color: #000000;
+    --main-border-color: #000000;
+    --main-border-size: 3px;
+    /* Box Dimensions*/
+    --box-default-padding: 20px;
+    --box-big-padding: 50px
+}
+
+
+/* Block (header, container, inputs etc.) */
+
+body {
+    font-family: "RobotoMono";
+    font-weight: bolder;
+    margin: 0;
+    margin-left: 0;
+}
+
+.header {
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px var(--box-default-padding) 0px var(--box-default-padding);
+}
+
+.btn {
+    background-color: var(--main-bg-color);
+}
+
+.modal-container {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    animation: createBox 1s;
+}
+
+
+/* Element (menu item, list item, checkbox caption, header title etc.) */
+
+.header-item {
+    height: 100%;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    font-family: "RobotoMono";
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: var(--main-txt-color);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header-item:hover {
+    background-color: var(--main-txt-color);
+    color: var(--main-bg-color);
+    transition: ease-in 0.3s;
+}
+
+
+/* Modifier (disabled, highlighted, checked, fixed, size-big etc.) */
+
+.main-border {
+    border: solid var(--main-border-size) var(--main-border-color);
+}
+
+
+/* font */
+
+.font-bold {
+    font-weight: bold;
+}
+
+.heading {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+
+/* margins */
+
+.ml-auto {
+    margin-left: auto !important;
+}
+
+.mr-auto {
+    margin-right: auto !important;
+}
+
+.mt-auto {
+    margin-top: auto !important;
+}
+
+.mb-auto {
+    margin-bottom: auto !important;
+}
+
+
+/* paddings */
+
+
+/* colors */
+
+
+/* keyframes für animationen */
+
+@keyframes createBox {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "localrestapi",
+    "version": "1.0.0",
+    "description": "Lokale REST-API. Teil eines Forschungsprojektes für die Universität Oldenburg.",
+    "main": "app.js",
+    "scripts": {
+        "start": "nodemon --exec node app.js",
+        "test": "node tests/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/kian1991/localrestapi.git"
+    },
+    "keywords": [
+        "rest",
+        "api",
+        "rest-api",
+        "local",
+        "express"
+    ],
+    "author": "Kian Lütke",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kian1991/localrestapi/issues"
+    },
+    "homepage": "https://github.com/kian1991/localrestapi#readme",
+    "dependencies": {
+        "better-sqlite3": "^6.0.1",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "node-fetch": "^2.6.0",
+        "nodemon": "^2.0.3"
+    }
+}
