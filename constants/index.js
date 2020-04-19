@@ -1,5 +1,5 @@
 const MESSAGE_CREATED = 'Ressource successfully created';
-const MESSAGE_SUCCESS = 'Request successfull';
+const MESSAGE_SUCCESS = 'Request successful';
 const MESSAGE_FAILED = 'Request failed';
 const MESSAGE_DELETED = 'Ressource successfully deleted';
 const MESSAGE_NO_SUCH_TABLE = 'Requested ressource was not found';

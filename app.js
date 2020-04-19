@@ -6,9 +6,8 @@ const routes = require('./routes');
 // Express konfiguration
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// Konfigurationsoberfläche
 app.use(express.static('public'));
-
-app.get('/', (req, res) => res.send('App is working'));
 
 app.use('/', routes);
 

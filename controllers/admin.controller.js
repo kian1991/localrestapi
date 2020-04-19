@@ -15,10 +15,20 @@ const { MESSAGE_FORMAT_ERROR } = require('../constants');
   }
 }
 */
-const createTable = async(req, res, next) => {
+const getTableNames = async(req, res, next) => {
     try {
-        const { table } = req.body;
-        console.log(req.body);
+        const responseBody = await adminService.getTableNames();
+        res.status(201).json(responseBody);
+        next();
+    } catch (e) {
+        console.log(e.message);
+        res.sendStatus(500) && next(e);
+    }
+};
+
+const createTable = async(req, res, next) => {
+    const { table } = req.body;
+    try {
         if (typeof table === 'undefined') {
             // Requestbody hat falsches Format
             return res
@@ -35,8 +45,8 @@ const createTable = async(req, res, next) => {
 };
 
 const deleteTable = async(req, res, next) => {
+    const { tableName } = req.body;
     try {
-        const { tableName } = req.body;
         console.log(req.body);
         if (typeof tableName === 'undefined') {
             // Requestbody hat falsches Format
@@ -56,4 +66,5 @@ const deleteTable = async(req, res, next) => {
 module.exports = {
     createTable,
     deleteTable,
+    getTableNames,
 };
