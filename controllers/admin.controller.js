@@ -47,7 +47,7 @@ const createTable = async(req, res, next) => {
 const deleteTable = async(req, res, next) => {
     const { name } = req.query;
     try {
-        console.log(req.body);
+        console.log(name);
         if (typeof name === 'undefined') {
             // Requestbody hat falsches Format
             return res

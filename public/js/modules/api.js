@@ -1,11 +1,13 @@
 import { API_URL, ENDPOINTS, HEADERS } from './constants.js';
 
-const getTableNames = new Promise((resolve, reject) => {
-    fetch(API_URL + ENDPOINTS.get.path)
-        .then((response) => response.json())
-        .then((json) => resolve(json))
-        .catch((err) => reject(err));
-});
+const getTableNames = () => {
+    return new Promise((resolve, reject) => {
+        fetch(API_URL + ENDPOINTS.get.path)
+            .then((response) => response.json())
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+    });
+}
 
 const createTable = (tableJson) => {
     return new Promise((resolve, reject) => {
@@ -14,7 +16,7 @@ const createTable = (tableJson) => {
                 Headers: {
                     HEADERS
                 },
-                body: JSON.stringify(tableJson);
+                body: JSON.stringify(tableJson)
             })
             .then((response) => response.json())
             .then((json) => resolve(json))

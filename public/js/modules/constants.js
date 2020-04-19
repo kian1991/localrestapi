@@ -1,5 +1,5 @@
 const BASE_URL = 'http://localhost';
-const PORT = '3000';
+const PORT = ':3000';
 
 const API_URL = BASE_URL + PORT;
 const HEADERS = {
