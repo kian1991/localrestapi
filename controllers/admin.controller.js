@@ -45,16 +45,16 @@ const createTable = async(req, res, next) => {
 };
 
 const deleteTable = async(req, res, next) => {
-    const { tableName } = req.body;
+    const { name } = req.query;
     try {
         console.log(req.body);
-        if (typeof tableName === 'undefined') {
+        if (typeof name === 'undefined') {
             // Requestbody hat falsches Format
             return res
                 .status(400)
                 .json({ status: 400, message: MESSAGE_FORMAT_ERROR }); // BAD REQUEST
         }
-        const responseBody = await adminService.deleteTable(tableName);
+        const responseBody = await adminService.deleteTable(name);
         res.status(201).json(responseBody);
         next();
     } catch (e) {

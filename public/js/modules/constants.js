@@ -2,6 +2,10 @@ const BASE_URL = 'http://localhost';
 const PORT = '3000';
 
 const API_URL = BASE_URL + PORT;
+const HEADERS = {
+    'Content-Type': 'application/json',
+};
+
 const ENDPOINTS = {
     get: {
         path: '/admin/table',
@@ -17,4 +21,4 @@ const ENDPOINTS = {
     },
 };
 
-export { API_URL, ENDPOINTS };
+export { API_URL, ENDPOINTS, HEADERS };

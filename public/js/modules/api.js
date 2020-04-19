@@ -1,25 +1,7 @@
-import { API_URL, ENDPOINTS } from './constants.js';
-
-
-const _request = (endpoint, body = {}) =>
-    fetch(API_URL + endpoint.path, {
-        method: endpoint.method,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-const _postRequest = (endpoint, body = {}) =>
-    fetch(API_URL + endpoint.path, {
-        method: endpoint.method,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-    });
+import { API_URL, ENDPOINTS, HEADERS } from './constants.js';
 
 const getTableNames = new Promise((resolve, reject) => {
-    _request(ENDPOINTS.get)
+    fetch(API_URL + ENDPOINTS.get.path)
         .then((response) => response.json())
         .then((json) => resolve(json))
         .catch((err) => reject(err));
@@ -27,7 +9,13 @@ const getTableNames = new Promise((resolve, reject) => {
 
 const createTable = (tableJson) => {
     return new Promise((resolve, reject) => {
-        _request(ENDPOINTS.create, tableJson)
+        fetch(API_URL + ENDPOINTS.create.path, {
+                method: ENDPOINTS.create.method,
+                Headers: {
+                    HEADERS
+                },
+                body: JSON.stringify(tableJson);
+            })
             .then((response) => response.json())
             .then((json) => resolve(json))
             .catch((err) => reject(err));
@@ -36,7 +24,9 @@ const createTable = (tableJson) => {
 
 const deleteTable = (tableName) => {
     return new Promise((resolve, reject) => {
-        _request(ENDPOINTS.delete, { tableName: tableName })
+        fetch(`${API_URL}${ENDPOINTS.delete.path}?name=${tableName}`, {
+                method: ENDPOINTS.delete.method,
+            })
             .then((response) => response.json())
             .then((json) => resolve(json))
             .catch((err) => reject(err));

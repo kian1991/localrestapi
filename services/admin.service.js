@@ -27,9 +27,9 @@ const createTable = async(table) => {
     }
 };
 
-const deleteTable = async(tableId) => {
+const deleteTable = async(name) => {
     try {
-        await adminDb.deleteTable(tableId);
+        await adminDb.deleteTable(name);
         const responseBody = {}; // body erstellen
         responseBody.status = 200; // OK
         responseBody.message = MESSAGE_DELETED;
