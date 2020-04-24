@@ -222,6 +222,24 @@ table tr:nth-child(even) {
     flex-direction: row;
 }
 
+.entry-container {
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.entry-header {
+    text-align: center;
+    font-size: 2.2rem;
+}
+
+.entry-content {}
+
+.entry-content table {
+    width: 100%;
+}
+
+.entry-footer {}
+
 
 /* Modifier (disabled, highlighted, checked, fixed, size-big etc.) */
 
@@ -251,6 +269,15 @@ table tr:nth-child(even) {
 .mx-1 {
     margin-left: .7rem;
     margin-right: .7rem;
+}
+
+.my-1 {
+    margin-top: .7rem;
+    margin-bottom: .7rem;
+}
+
+.mt-1 {
+    margin-top: .7rem;
 }
 
 .m-auto {
@@ -320,6 +347,18 @@ table tr:nth-child(even) {
 
 .color-success {
     color: #6aad61;
+}
+
+
+/* Sonstiges */
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 

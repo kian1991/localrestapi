@@ -6,6 +6,12 @@ const modalTableManipulator = (rows, cols, tableData = undefined) => {
 
     // Zeilen und Spalten respektive der Zeilen und Spalten der Tabellendaten
     if (tableData) {
+        // alte Tabelle zurücksetzen, falls vorhanden
+        if (table.tHead) {
+            table.tHead.innerHTML = '';
+            table.tBodies[0].innerHTML = '';
+        }
+
         rows = tableData.table.data.length + 1; // +1 wegen header
         cols = tableData.table.header.length;
         // Eingabefelder modifizieren
@@ -28,7 +34,7 @@ const modalTableManipulator = (rows, cols, tableData = undefined) => {
     };
 
     // Prüfen ob Tabelle bereits Daten enthält
-    if (table.tHead) {
+    if (table.tHead && !tableData) {
         // Tabelle enthält bereits Daten
         // also nur entsprechende Zeilen oder Spalten hinzufügen
         const rowDiff = rows - table.rows.length; // Differenz kann negativ oder positiv sein (löschen/hinzufügen)
@@ -122,6 +128,21 @@ const modalMessageSuccess = (message) => {
     modalMessage.innerText = message;
 };
 
+const entryHeaderClickHandler = (entryHeader) => {
+    const entryElement = entryHeader.parentElement;
+    // Tabelle und Footer einblenden
+    let contentElement = entryElement.getElementsByClassName('entry-content')[0];
+    let footerElement = entryElement.getElementsByClassName('entry-footer')[0];
+
+    if (contentElement.style.display === 'none') {
+        contentElement.style.display = 'flex';
+        footerElement.style.display = 'flex';
+    } else {
+        contentElement.style.display = 'none';
+        footerElement.style.display = 'none';
+    }
+};
+
 const rowColInputHandler = () => {
     // Elemente vom DOM
     const rowInput = document.getElementById('rows');
@@ -168,4 +189,10 @@ const pageInit = () => {
     });
 };
 
-export { pageInit, closeModal, rowColInputHandler, csvFileHandler };
+export {
+    pageInit,
+    closeModal,
+    entryHeaderClickHandler,
+    rowColInputHandler,
+    csvFileHandler,
+};

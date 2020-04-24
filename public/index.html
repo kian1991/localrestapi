@@ -24,7 +24,65 @@
     <!--[if lt IE 7]>
             <p class="browsehappy ">You are using an <strong>outdated</strong> browser. Please <a href="# ">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+    <div id="main-content">
+        <div class="entry-container main-border">
+            <div class="entry-header unselectable" onclick="entryHeaderClickHandler(this)">
+                <span>/users</span>
+            </div>
+            <div class="entry-content mt-1" style="display: none;">
+                <table class="entry-table">
+                    <thead>
+                        <th>Methode</th>
+                        <th>Pfad</th>
+                        <th>Beschreibung</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/users</td>
+                            <td>
+                                <p>Abrufen aller Einträge</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/users?[spaltenname]=[wert]</td>
+                            <td>
+                                <p>Abrufen bestimmter Einträge mit Wert</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/users</td>
+                            <td>
+                                <p>Hinzufügen neuer Einträge mit JSON-Body: <br>
+                                    <pre>
+{
+    name: "John",
+    nachname: Doe",
+    alter: "22",
+    job: "Cashier",
+}
+                                </pre></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>DELETE</td>
+                            <td>/users?[spaltenname]=[wert]</td>
+                            <td>
+                                <p>Löschen bestimmter Einträge mit Wert</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="entry-footer" style="display: none">
+                <button class="btn mr-auto my-1">Tabelle..</button>
+                <button class="btn ml-auto my-1">Löschen</button>
+            </div>
+        </div>
 
+    </div>
 
     <script type="module" src="js/main.js" async></script>
 </body>
