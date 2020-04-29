@@ -1,9 +1,9 @@
 const {
-    testAdminAddRoute,
-    testAdminDeleteRoute,
+  testAdminAddRoute,
+  testAdminDeleteRoute,
 } = require('./routes/admin.routes.test');
 
-const { testAdminDb } = require('./db/admin.db.test');
+const {testAdminDb} = require('./db/admin.db.test');
 
 console.log('TESTS INITIATED');
 console.log('Testing DB...');

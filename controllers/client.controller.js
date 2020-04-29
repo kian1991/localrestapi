@@ -1,24 +1,20 @@
-const {adminService} = require('../services');
+const {clientService} = require('../services');
 const {MESSAGE_FORMAT_ERROR} = require('../constants');
 
 /* Der Request-Body enthält folgende Struktur:
-{
-  table: {
-      name: "users",
-      header: ["name", "age"],
-      data: [
-      ["Jason", "32"],
-      ["Anna", "21"],
-      ["Joe", "18"],
-      ["Alice", "62"]
-      ]
-  }
-}
+
 */
-const getTableNames = async (req, res, next) => {
+const getContent = async (req, res, next) => {
+  // Tabellenname lässt sich aus übergebenen Pfad ableiten
+  const table = req.originalUrl;
+  const query = req.query;
   try {
-    const responseBody = await adminService.getTableNames();
-    res.status(201).json(responseBody);
+    const responseBody = await clientService.getContent(table, query);
+    if (responseBody.status === '404') { // Tabelle nicht gefunden
+      res.status(404).json(responseBody);
+      next();
+    }
+    res.status(200).json(responseBody);
     next();
   } catch (e) {
     console.log(e.message);
@@ -26,16 +22,16 @@ const getTableNames = async (req, res, next) => {
   }
 };
 
-const createTable = async (req, res, next) => {
-  const {table} = req.body;
+const createContent = async (req, res, next) => {
+  const body = req.body;
   try {
-    if (typeof table === 'undefined') {
+    if (typeof body === 'undefined') {
       // Requestbody hat falsches Format
       return res
           .status(400)
           .json({status: 400, message: MESSAGE_FORMAT_ERROR}); // BAD REQUEST
     }
-    const responseBody = await adminService.createTable(table);
+    const responseBody = await clientService.createContent(body);
     res.status(201).json(responseBody);
     next();
   } catch (e) {
@@ -44,17 +40,16 @@ const createTable = async (req, res, next) => {
   }
 };
 
-const deleteTable = async (req, res, next) => {
-  const {name} = req.query;
+const deleteContent = async (req, res, next) => {
+  const query = req.query;
   try {
-    console.log(name);
     if (typeof name === 'undefined') {
       // Requestbody hat falsches Format
       return res
           .status(400)
           .json({status: 400, message: MESSAGE_FORMAT_ERROR}); // BAD REQUEST
     }
-    const responseBody = await adminService.deleteTable(name);
+    const responseBody = await clientService.deleteContent(query);
     res.status(201).json(responseBody);
     next();
   } catch (e) {
@@ -64,7 +59,7 @@ const deleteTable = async (req, res, next) => {
 };
 
 module.exports = {
-  createTable,
-  deleteTable,
-  getTableNames,
+  createContent,
+  deleteContent,
+  getContent,
 };
