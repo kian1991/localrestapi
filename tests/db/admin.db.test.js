@@ -3,22 +3,12 @@ const {adminDb} = require('../../db');
 // testing methods
 const testData = {
   table: {
-    name: 'testtable',
-    header: ['head1', 'head2', 'head3', 'head4'],
+    name: 'users',
+    header: ['first_name', 'last_name', 'age', 'job'],
     data: [
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
-      ['data1', 'data2', 'data3', 'data4'],
+      ['John', 'Doe', '43', 'Developer'],
+      ['Anna', 'Richards', '27', 'Designer'],
+      ['Celine', 'Monroe', '37', 'Accountant'],
     ],
   },
 };
