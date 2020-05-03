@@ -7,7 +7,7 @@ const {testAdminDb} = require('./db/admin.db.test');
 
 console.log('TESTS INITIATED');
 console.log('Testing DB...');
-testAdminDb();
+// testAdminDb();
 console.log('Testing Endpoints (Routes)');
 let result = testAdminDeleteRoute();
 result = testAdminAddRoute();

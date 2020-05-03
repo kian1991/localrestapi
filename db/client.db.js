@@ -2,7 +2,7 @@ const {db} = require('./connection');
 
 const getContent = (table, query) => {
   let sqlString = `SELECT * FROM ${table}`;
-  if (Object.keys(query).length > 0) {
+  if (query && Object.keys(query).length > 0) {
     // Key und Value auslesen
     const key = Object.keys(query)[0];
     const value = query[key];

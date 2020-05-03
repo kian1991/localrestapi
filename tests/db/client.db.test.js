@@ -2,8 +2,10 @@ const {clientDb} = require('../../db');
 
 // testing methods
 const testData = {
-  name: 'Kian',
+  first_name: 'Kian',
+  last_name: 'Lütke',
   age: '29',
+  job: 'Student',
 };
 
 const table = 'users';

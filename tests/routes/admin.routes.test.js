@@ -1,65 +1,43 @@
-const { router } = require('../../routes');
 const fetch = require('node-fetch');
 
 const url = 'http://localhost:3000/admin/table';
-const testData = {
-    table: {
-        name: 'testtable',
-        header: ['head1', 'head2', 'head3', 'head4'],
-        data: [
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-            ['data1', 'data2', 'data3', 'data4'],
-        ],
-    },
-};
+
+const testData = { table: { data: [['319571', '2.99€', '5'], ['315135', '3.99€', '2'], ['353555', '4.99€', '23'], ['385937', '5.99€', '5'], ['827568', '1.99€', '6'], ['358039', '1.99€', '7'], ['40267', '2.99€', '2'], ['924570', '12.99€', '33'], ['923570', '9.99€', '5'], ['024875', '9.99€', '3'], ['209573', '21.99€', '23'], ['024713', '63.99€', '2'], ['319571', '2.99€', '5'], ['315135', '3.99€', '2'], ['353555', '4.99€', '23'], ['385937', '5.99€', '5'], ['827568', '1.99€', '6'], ['358039', '1.99€', '7'], ['40267', '2.99€', '2'], ['924570', '12.99€', '33'], ['923570', '9.99€', '5'], ['024875', '9.99€', '3'], ['209573', '21.99€', '23'], ['024713', '63.99€', '2'], ['319571', '2.99€', '5'], ['315135', '3.99€', '2'], ['353555', '4.99€', '23'], ['385937', '5.99€', '5'], ['827568', '1.99€', '6'], ['358039', '1.99€', '7'], ['40267', '2.99€', '2'], ['924570', '12.99€', '33'], ['923570', '9.99€', '5'], ['024875', '9.99€', '3'], ['209573', '21.99€', '23'], ['024713', '63.99€', '2'], ['319571', '2.99€', '5'], ['315135', '3.99€', '2'], ['353555', '4.99€', '23'], ['385937', '5.99€', '5'], ['827568', '1.99€', '6'], ['358039', '1.99€', '7'], ['40267', '2.99€', '2'], ['924570', '12.99€', '33'], ['923570', '9.99€', '5'], ['024875', '9.99€', '3'], ['209573', '21.99€', '23'], ['024713', '63.99€', '2'], ['319571', '2.99€', '5'], ['315135', '3.99€', '2'], ['353555', '4.99€', '23'], ['385937', '5.99€', '5'], ['827568', '1.99€', '6'], ['358039', '1.99€', '7'], ['40267', '2.99€', '2'], ['924570', '12.99€', '33'], ['923570', '9.99€', '5'], ['024875', '9.99€', '3'], ['209573', '21.99€', '23'], ['024713', '63.99€', '2'], ['319571', '2.99€', '5'], ['315135', '3.99€', '2'], ['353555', '4.99€', '23'], ['385937', '5.99€', '5'], ['827568', '1.99€', '6'], ['358039', '1.99€', '7'], ['40267', '2.99€', '2'], ['924570', '12.99€', '33'], ['923570', '9.99€', '5'], ['024875', '9.99€', '3'], ['209573', '21.99€', '23'], ['024713', '63.99€', '2'], ['319571', '2.99€', '5'], ['315135', '3.99€', '2'], ['353555', '4.99€', '23'], ['385937', '5.99€', '5'], ['827568', '1.99€', '6'], ['358039', '1.99€', '7'], ['40267', '2.99€', '2'], ['924570', '12.99€', '33'], ['923570', '9.99€', '5'], ['024875', '9.99€', '3'], ['209573', '21.99€', '23'], ['024713', '63.99€', '2']], header: ['artikel_nr', 'preis', 'lager'], name: 'artikel' } };
+
 
 const requestRoute = (method, body) => {
-    fetch(url, {
-            method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Content-Length': body.length,
-            },
-            body: JSON.stringify(body),
-        })
-        .then((res, err) => {
-            return res.json();
-        })
-        .then((json) => {
-            console.info(method, json);
-            if (json.status === 200 && json.status === 201) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+  fetch(url, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': body.length,
+    },
+    body: JSON.stringify(body),
+  })
+    .then((res, err) => res.json())
+    .then((json) => {
+      console.info(method, json);
+      if (json.status === 200 && json.status === 201) {
+        return true;
+      }
+      return false;
+    });
 };
 
 // Test Routes: ADD
-const testAdminAddRoute = async() => {
-    const body = testData;
-    const method = 'PUT';
-    return requestRoute(method, body);
+const testAdminAddRoute = async () => {
+  const body = testData;
+  const method = 'PUT';
+  return requestRoute(method, body);
 };
 
-const testAdminDeleteRoute = async() => {
-    const body = { tableName: testData.table.name };
-    const method = 'DELETE';
-    return requestRoute(method, body);
+const testAdminDeleteRoute = async () => {
+  const body = { tableName: testData.table.name };
+  const method = 'DELETE';
+  return requestRoute(method, body);
 };
 
 module.exports = {
-    testAdminAddRoute,
-    testAdminDeleteRoute,
+  testAdminAddRoute,
+  testAdminDeleteRoute,
 };

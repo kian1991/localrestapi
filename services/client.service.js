@@ -10,7 +10,7 @@ const {
 const getContent = async (path, query) => {
   try {
     // Slashes und query aus Tabellennamen entfernen
-    table = path.replace(/\//g, '').replace(/[?].*/, '');
+    table = path.replace('api', '').replace(/\//g, '').replace(/[?].*/, '');
     const responseBody = {}; // body erstellen
     responseBody.status = 200; // OK
     responseBody.message = MESSAGE_SUCCESS;
@@ -42,7 +42,7 @@ const createContent = async (table, body) => {
   }
 };
 
-const deleteConent = async (table, query) => {
+const deleteConent = async (table, query) => { // todo
   try {
     await adminDb.deleteTable(name);
     const responseBody = {}; // body erstellen

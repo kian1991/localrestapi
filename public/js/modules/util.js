@@ -19,7 +19,19 @@
  * @param {*} table HTMLDom Table Element
  * @returns json-formatierte Tabelle
  */
-const tableToJson = (table) => {};
+const tableToJson = (table) => {
+    const header = table.tHead.rows[0].innerText.split('\t')
+    const data = [];
+    Array.from(table.tBodies[0].rows).forEach( row => {
+        data.push(row.innerText.split('\t'))
+    });
+    return {
+        table: {
+            data,
+            header
+        }
+    }
+};
 
 const csvToJson = (csvString) => {
     return new Promise((resolve, reject) => {

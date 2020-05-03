@@ -1,4 +1,4 @@
-const {adminDb} = require('../db');
+const { adminDb } = require('../db');
 const {
   MESSAGE_CREATED,
   MESSAGE_DELETED,
@@ -16,9 +16,8 @@ const createTable = async (table) => {
     const responseBody = {}; // body erstellen
     responseBody.status = 201; // CREATED
     responseBody.message = MESSAGE_CREATED;
-    responseBody.data = {
-      tableNames: await adminDb.getTableNames(),
-    };
+    responseBody.data = await adminDb.getTableNames();
+
     return responseBody;
   } catch (e) {
     throw new Error(e.message);
@@ -31,9 +30,7 @@ const deleteTable = async (name) => {
     const responseBody = {}; // body erstellen
     responseBody.status = 200; // OK
     responseBody.message = MESSAGE_DELETED;
-    responseBody.data = {
-      tableNames: await adminDb.getTableNames(),
-    };
+    responseBody.data = await adminDb.getTableNames();
     return responseBody;
   } catch (e) {
     throw new Error(e.message);
@@ -45,8 +42,27 @@ const getTableNames = async () => {
     const responseBody = {}; // body erstellen
     responseBody.status = 200; // OK
     responseBody.message = MESSAGE_SUCCESS;
+    responseBody.data = await adminDb.getTableNames();
+    return responseBody;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const getTable = async (reqPath) => {
+  // Slashes und query aus Tabellennamen entfernen
+  const tableName = reqPath.replace('/admin/table/', '');
+  try {
+    const responseBody = {}; // body erstellen
+    responseBody.status = 200; // OK
+    responseBody.message = MESSAGE_SUCCESS;
+    const tableData = await adminDb.getTable(tableName);
     responseBody.data = {
-      tableNames: await adminDb.getTableNames(),
+      table: {
+        name: tableName,
+        header: tableData.header,
+        data: tableData.data,
+      },
     };
     return responseBody;
   } catch (e) {
@@ -58,4 +74,5 @@ module.exports = {
   createTable,
   deleteTable,
   getTableNames,
+  getTable,
 };

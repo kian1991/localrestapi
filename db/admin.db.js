@@ -1,4 +1,4 @@
-const {db} = require('./connection');
+const { db } = require('./connection');
 
 const createTable = (table) => {
   // Tabelle löschen falls vorhanden, um neue Daten zu schreiben
@@ -25,14 +25,14 @@ const deleteTable = (tableName) => {
 const insertDataIntoTable = (table) => {
   const insert = (valueString) => {
     const sqlString = `INSERT INTO ${table.name} ('${table.header.join(
-        '\',\'',
+      '\',\'',
     )}') VALUES (${valueString});`;
     return db.prepare(sqlString);
   };
 
   const insertMany = db.transaction((tableData) => {
     tableData.forEach((values) => {
-      valueString = `'${values.join('\',\'')}'`;
+      const valueString = `'${values.join('\',\'')}'`;
       insert(valueString).run();
     });
   });
@@ -42,10 +42,31 @@ const insertDataIntoTable = (table) => {
 
 const getTableNames = () => {
   const statement = db.prepare(
-      `SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence';`,
+    `SELECT name FROM sqlite_master 
+      WHERE type='table' AND name != 'sqlite_sequence';`,
   );
   const result = statement.all();
-  return result.map((entry) => entry.name);
+  const tables = [];
+  result.forEach((entry) => {
+    const pragma = `table_info(${entry.name})`;
+    const header = db.pragma(pragma).map((el) => el.name);
+    tables.push({
+      name: entry.name,
+      header,
+    });
+  });
+  return tables;
+};
+
+const getTable = (tableName) => {
+  const tableData = {};
+  const sqlString = `SELECT * FROM ${tableName}`;
+  const statement = db.prepare(sqlString);
+  tableData.data = statement.all()
+    .map((entry) => Object.values(entry));
+  const pragma = `table_info(${tableName})`;
+  tableData.header = db.pragma(pragma).map((el) => el.name);
+  return tableData;
 };
 
 module.exports = {
@@ -53,4 +74,5 @@ module.exports = {
   deleteTable,
   insertDataIntoTable,
   getTableNames,
+  getTable,
 };

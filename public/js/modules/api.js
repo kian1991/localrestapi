@@ -1,42 +1,47 @@
-import { API_URL, ENDPOINTS, HEADERS } from './constants.js';
+import { API_URL, ENDPOINTS } from './constants.js';
+import { tableToJson } from './util.js';
 
-const getTableNames = () => {
-    return new Promise((resolve, reject) => {
-        fetch(API_URL + ENDPOINTS.get.path)
-            .then((response) => response.json())
-            .then((json) => resolve(json))
-            .catch((err) => reject(err));
-    });
-}
+const getTables = () => new Promise((resolve, reject) => {
+  fetch(API_URL)
+    .then((response) => response.json())
+    .then((json) => resolve(json))
+    .catch((err) => reject(err));
+});
 
-const createTable = (tableJson) => {
-    return new Promise((resolve, reject) => {
-        fetch(API_URL + ENDPOINTS.create.path, {
-                method: ENDPOINTS.create.method,
-                Headers: {
-                    HEADERS
-                },
-                body: JSON.stringify(tableJson)
-            })
-            .then((response) => response.json())
-            .then((json) => resolve(json))
-            .catch((err) => reject(err));
-    });
+const getTableByName = (tableName) => new Promise((resolve, reject) => {
+  fetch(`${API_URL}${tableName}`)
+    .then((response) => response.json())
+    .then((json) => resolve(json))
+    .catch((err) => reject(err));
+});
+
+const createTable = (tableJson) => new Promise((resolve, reject) => {
+  const body = JSON.stringify(tableJson);
+  fetch(API_URL, {
+    method: ENDPOINTS.create.method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': body.length,
+    },
+    body,
+  })
+    .then((response) => response.json())
+    .then((json) => resolve(json))
+    .catch((err) => reject(err));
+});
+
+const deleteTable = (tableName) => new Promise((resolve, reject) => {
+  fetch(`${API_URL}?name=${tableName}`, {
+    method: ENDPOINTS.delete.method,
+  })
+    .then((response) => response.json())
+    .then((json) => resolve(json))
+    .catch((err) => reject(err));
+});
+
+export {
+  getTables,
+  createTable,
+  deleteTable,
+  getTableByName,
 };
-
-const deleteTable = (tableName) => {
-    return new Promise((resolve, reject) => {
-        fetch(`${API_URL}${ENDPOINTS.delete.path}?name=${tableName}`, {
-                method: ENDPOINTS.delete.method,
-            })
-            .then((response) => response.json())
-            .then((json) => resolve(json))
-            .catch((err) => reject(err));
-    });
-};
-
-exports {
-    getTableNames,
-    createTable,
-    deleteTable
-}
