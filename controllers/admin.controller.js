@@ -21,8 +21,7 @@ const getTableNames = async (req, res, next) => {
     res.status(201).json(responseBody);
     next();
   } catch (e) {
-    res.sendStatus(500);
-    next(e);
+    res.sendStatus(500) && next(e);
   }
 };
 
@@ -34,8 +33,8 @@ const getTable = async (req, res, next) => {
     res.status(201).json(responseBody);
     next();
   } catch (e) {
-    res.sendStatus(500);
-    next(e);
+    console.error(e);
+    res.sendStatus(500) && next();
   }
 };
 
@@ -52,8 +51,7 @@ const createTable = async (req, res, next) => {
     res.status(201).json(responseBody);
     next();
   } catch (e) {
-    res.sendStatus(500);
-    next(e);
+    res.sendStatus(500) && next(e);
   }
 };
 
@@ -70,8 +68,7 @@ const deleteTable = async (req, res, next) => {
     res.status(201).json(responseBody);
     next();
   } catch (e) {
-    res.sendStatus(500);
-    next(e);
+    res.sendStatus(500) && next(e);
   }
 };
 

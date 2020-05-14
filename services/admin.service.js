@@ -53,19 +53,22 @@ const getTable = async (reqPath) => {
   // Slashes und query aus Tabellennamen entfernen
   const tableName = reqPath.replace('/admin/table/', '');
   try {
-    const responseBody = {}; // body erstellen
-    responseBody.status = 200; // OK
-    responseBody.message = MESSAGE_SUCCESS;
-    const tableData = await adminDb.getTable(tableName);
-    responseBody.data = {
-      table: {
-        name: tableName,
-        header: tableData.header,
-        data: tableData.data,
-      },
-    };
-    return responseBody;
+    if (tableName) {
+      const responseBody = {}; // body erstellen
+      responseBody.status = 200; // OK
+      responseBody.message = MESSAGE_SUCCESS;
+      const tableData = await adminDb.getTable(tableName);
+      responseBody.data = {
+        table: {
+          name: tableName,
+          header: tableData.header,
+          data: tableData.data,
+        },
+      };
+      return responseBody;
+    }
   } catch (e) {
+    console.error(e);
     throw new Error(e.message);
   }
 };

@@ -26,6 +26,8 @@ const smallModalComponent = () => `
 const entryComponent = (name, headerArray) => {
   // JSON aus dem headerArray Formen
   let json = {};
+  // ID entfernen falls vorhanden
+  if (headerArray[0].toLowerCase() === 'id') headerArray.shift();
   headerArray.forEach((head) => {
     json[head] = 'wert';
   });
