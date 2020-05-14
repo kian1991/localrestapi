@@ -1,4 +1,4 @@
-const {db} = require('./connection');
+const { db } = require('./connection');
 
 const getContent = (table, query) => {
   let sqlString = `SELECT * FROM ${table}`;
@@ -25,7 +25,15 @@ const createContent = (table, body) => {
 };
 
 const deleteContent = (table, query) => {
-  return;
+  let sqlString = `DELETE FROM ${table}`;
+  if (query && Object.keys(query).length > 0) {
+    // Key und Value auslesen
+    const key = Object.keys(query)[0];
+    const value = query[key];
+    sqlString += ` WHERE ${key} = '${value}';`;
+  }
+  const statement = db.prepare(sqlString);
+  return statement.all();
 };
 
 

@@ -39,16 +39,16 @@ const createContent = async (req, res, next) => {
 };
 
 const deleteContent = async (req, res, next) => {
+  // Tabellenname lässt sich aus übergebenen Pfad ableiten
+  const reqPath = req.originalUrl;
   const { query } = req;
   try {
-    if (typeof name === 'undefined') {
-      // Requestbody hat falsches Format
-      return res
-        .status(400)
-        .json({ status: 400, message: MESSAGE_FORMAT_ERROR }); // BAD REQUEST
+    const responseBody = await clientService.deleteConent(reqPath, query);
+    if (responseBody.status === '404') { // Tabelle nicht gefunden
+      res.status(404).json(responseBody);
+      next();
     }
-    const responseBody = await clientService.deleteContent(query);
-    res.status(201).json(responseBody);
+    res.status(202).json(responseBody);
     next();
   } catch (e) {
     res.sendStatus(500) && next(e);

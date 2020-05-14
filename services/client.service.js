@@ -1,4 +1,4 @@
-const {clientDb} = require('../db');
+const { clientDb } = require('../db');
 const {
   MESSAGE_CREATED,
   MESSAGE_FAILED,
@@ -10,14 +10,13 @@ const {
 const getContent = async (path, query) => {
   try {
     // Slashes und query aus Tabellennamen entfernen
-    table = path.replace('api', '').replace(/\//g, '').replace(/[?].*/, '');
+    path = path.replace('api', '').replace(/\//g, '').replace(/[?].*/, '');
     const responseBody = {}; // body erstellen
     responseBody.status = 200; // OK
     responseBody.message = MESSAGE_SUCCESS;
-    responseBody.data = await clientDb.getContent(table, query);
+    responseBody.data = await clientDb.getContent(path, query);
     return responseBody;
   } catch (e) {
-    console.error(e);
     // Tabelle nicht gefunden
     const responseBody = {}; // body erstellen
     responseBody.status = 404; // OK
@@ -42,18 +41,21 @@ const createContent = async (table, body) => {
   }
 };
 
-const deleteConent = async (table, query) => { // todo
+const deleteConent = async (path, query) => { // todo
   try {
-    await adminDb.deleteTable(name);
+    // Slashes und query aus Tabellennamen entfernen
+    path = path.replace('api', '').replace(/\//g, '').replace(/[?].*/, '');
     const responseBody = {}; // body erstellen
     responseBody.status = 200; // OK
-    responseBody.message = MESSAGE_DELETED;
-    responseBody.data = {
-      tableNames: await adminDb.getTableNames(),
-    };
+    responseBody.message = MESSAGE_SUCCESS;
+    responseBody.data = await clientDb.deleteContent(path, query);
     return responseBody;
   } catch (e) {
-    throw new Error(e.message);
+    // Tabelle nicht gefunden
+    const responseBody = {}; // body erstellen
+    responseBody.status = 404; // OK
+    responseBody.message = MESSAGE_NO_SUCH_TABLE;
+    return responseBody;
   }
 };
 
