@@ -34,7 +34,7 @@ const entryComponent = (name, headerArray) => {
   // json in String umwandeln und 'Pretty-Printen'
   json = JSON.stringify(json, null, 2);
 
-  return (`
+  return `
     <div class="entry-header unselectable" onclick="entryHeaderClickHandler(this)">
         <span>/${name}</span>
     </div>
@@ -48,21 +48,21 @@ const entryComponent = (name, headerArray) => {
             <tbody>
                 <tr>
                     <td>GET</td>
-                    <td>/${name}</td>
+                    <td>/api/${name}</td>
                     <td>
                         <p>Abrufen aller Einträge</p>
                     </td>
                 </tr>
                 <tr>
                     <td>GET</td>
-                    <td>/${name}?[spaltenname]=[wert]</td>
+                    <td>/api/${name}?[spaltenname]=[wert]</td>
                     <td>
                         <p>Abrufen bestimmter Einträge mit Wert</p>
                     </td>
                 </tr>
                 <tr>
                     <td>POST</td>
-                    <td>/${name}</td>
+                    <td>/api/${name}</td>
                     <td>
                         <p>Hinzufügen neuer Einträge mit JSON-Body: <br>
                             <pre>
@@ -73,7 +73,7 @@ ${json}
                 </tr>
                 <tr>
                     <td>DELETE</td>
-                    <td>/${name}?[spaltenname]=[wert]</td>
+                    <td>/api/${name}?[spaltenname]=[wert]</td>
                     <td>
                         <p>Löschen bestimmter Einträge mit Wert</p>
                     </td>
@@ -85,7 +85,7 @@ ${json}
         <button class="btn mr-auto my-1" onclick="entryTableButtonHandler('${name}')" >Tabelle</button>
         <button class="btn ml-auto my-1" onclick="entryDeleteButtonHandler('${name}')" >Löschen</button>
     </div>
-    `);
+    `;
 };
 
 export { smallModalComponent, entryComponent };

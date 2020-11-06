@@ -1,8 +1,6 @@
 import { smallModalComponent, entryComponent } from './components.js';
 import { csvToJson, tableToJson } from './util.js';
-import {
-  getTables, createTable, deleteTable, getTableByName,
-} from './api.js';
+import { getTables, createTable, deleteTable, getTableByName } from './api.js';
 
 /** GENERAL */
 const addComponent = (child) => {
@@ -25,8 +23,9 @@ const addEntries = (json) => {
 };
 
 const removeEntries = () => {
-  Array.from(document.getElementsByClassName('entry-container'))
-    .forEach((entry) => removeComponent(entry));
+  Array.from(
+    document.getElementsByClassName('entry-container')
+  ).forEach((entry) => removeComponent(entry));
 };
 
 /** MODAL */
@@ -70,13 +69,13 @@ const modalTableManipulator = (rows, cols, tableData = undefined) => {
     const rowDiff = rows - table.rows.length;
     const colDiff = cols - table.rows[0].cells.length;
 
-
     // Zeilen
     if (rowDiff > 0) {
       // Hinzufügen
       for (let rowIndex = 0; rowIndex < rowDiff; rowIndex++) {
         // Wenn nicht erste Zeile, dann zum body hinzufügen
-        const row = rows > 1 ? table.tBodies[0].insertRow() : table.tHead.insertRow();
+        const row =
+          rows > 1 ? table.tBodies[0].insertRow() : table.tHead.insertRow();
         for (let colIndex = 0; colIndex < cols; colIndex++) {
           row.appendChild(getCell());
         }
@@ -125,7 +124,15 @@ const modalTableManipulator = (rows, cols, tableData = undefined) => {
       if (rowIndex === 0) {
         if (tableData) {
           const cellValue = tableData.table.header[colIndex];
-          row.appendChild(getHeadCell(cellValue, !(colIndex === 0 && tableData.table.header[0].toLowerCase() === 'id'))); // !colIndex === 0 gibt true zurück wenn wir uns nicht in der ersten Spalte befinden
+          row.appendChild(
+            getHeadCell(
+              cellValue,
+              !(
+                colIndex === 0 &&
+                tableData.table.header[0].toLowerCase() === 'id'
+              )
+            )
+          ); // !colIndex === 0 gibt true zurück wenn wir uns nicht in der ersten Spalte befinden
           // (wegen der editierbarkeit - ID darf nicht editiert werden)
         } else {
           row.appendChild(getHeadCell());
@@ -134,7 +141,15 @@ const modalTableManipulator = (rows, cols, tableData = undefined) => {
         // Prüfen ob Tabellendaten vorhanden sind
         if (tableData) {
           const cellValue = tableData.table.data[rowIndex - 1][colIndex];
-          row.appendChild(getCell(cellValue, !(colIndex === 0 && tableData.table.header[0].toLowerCase() === 'id')));
+          row.appendChild(
+            getCell(
+              cellValue,
+              !(
+                colIndex === 0 &&
+                tableData.table.header[0].toLowerCase() === 'id'
+              )
+            )
+          );
         } else {
           row.appendChild(getCell());
         }
@@ -142,7 +157,7 @@ const modalTableManipulator = (rows, cols, tableData = undefined) => {
     }
   }
 
-  // Die kreirten Elemente (tbody, thead) der Tabelle hinzufügen
+  // Die kreierten Elemente (tbody, thead) der Tabelle hinzufügen
   table.appendChild(tHead);
   table.appendChild(tBody);
 };
@@ -181,7 +196,9 @@ const closeModal = () => {
 const entryHeaderClickHandler = (entryHeader) => {
   const entryElement = entryHeader.parentElement;
   // Tabelle und Footer einblenden
-  const contentElement = entryElement.getElementsByClassName('entry-content')[0];
+  const contentElement = entryElement.getElementsByClassName(
+    'entry-content'
+  )[0];
   const footerElement = entryElement.getElementsByClassName('entry-footer')[0];
 
   if (contentElement.style.display === 'none') {
@@ -200,15 +217,17 @@ const entryDeleteButtonHandler = (tableName) => {
   });
 };
 
-const entryTableButtonHandler = (tableName) => new Promise((res, rej) => {
-  getTableByName(tableName).then((json) => {
-    openModal();
-    modalTableManipulator(null, null, json.data);
-    document.getElementById('modal-input-name').value = tableName;
-    res();
-  }).catch((err) => rej(err));
-});
-
+const entryTableButtonHandler = (tableName) =>
+  new Promise((res, rej) => {
+    getTableByName(tableName)
+      .then((json) => {
+        openModal();
+        modalTableManipulator(null, null, json.data);
+        document.getElementById('modal-input-name').value = tableName;
+        res();
+      })
+      .catch((err) => rej(err));
+  });
 
 const rowColInputHandler = () => {
   // Elemente vom DOM
@@ -241,7 +260,6 @@ const saveButtonHandler = () => {
   }
 };
 
-
 /** IO */
 const csvFileHandler = () => {
   const input = document.getElementById('csv-upload');
@@ -257,7 +275,6 @@ const csvFileHandler = () => {
       modalMessageError(err.message);
     });
 };
-
 
 /** PAGE INIT */
 
