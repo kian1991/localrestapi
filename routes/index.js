@@ -13,7 +13,7 @@ router.delete('/admin/table', adminController.deleteTable);
 
 // Clientrouten mit generischem Inhalt (kann "searchquery" beinhalten)
 router.get('/api/*', clientController.getContent);
-router.put('/api/*', clientController.createContent);
+router.post('/api/*', clientController.createContent);
 router.delete('/api/*', clientController.deleteContent);
 
 module.exports = router;

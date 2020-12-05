@@ -25,32 +25,33 @@ const getContent = async (path, query) => {
   }
 };
 
-
 const createContent = async (table, body) => {
   try {
+    table = table.replace('/api/', '');
+    await clientDb.createContent(table, body);
     // Response Body erstellen und zurückgeben
     const responseBody = {}; // body erstellen
     responseBody.status = 201; // CREATED
     responseBody.message = MESSAGE_CREATED;
-    responseBody.data = {
-      tableNames: await clientDb.getContent(),
-    };
+    responseBody.data = await clientDb.getContent(table);
     return responseBody;
   } catch (e) {
     throw new Error(e.message);
   }
 };
 
-const deleteConent = async (path, query) => { // todo
+const deleteContent = async (path, query) => {
   try {
     // Slashes und query aus Tabellennamen entfernen
     path = path.replace('api', '').replace(/\//g, '').replace(/[?].*/, '');
+    await clientDb.deleteContent(path, query);
     const responseBody = {}; // body erstellen
     responseBody.status = 200; // OK
     responseBody.message = MESSAGE_SUCCESS;
-    responseBody.data = await clientDb.deleteContent(path, query);
+    responseBody.data = clientDb.getContent(path);
     return responseBody;
   } catch (e) {
+    console.log(e);
     // Tabelle nicht gefunden
     const responseBody = {}; // body erstellen
     responseBody.status = 404; // OK
@@ -61,6 +62,6 @@ const deleteConent = async (path, query) => { // todo
 
 module.exports = {
   getContent,
-  deleteConent,
+  deleteContent,
   createContent,
 };

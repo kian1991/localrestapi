@@ -10,7 +10,8 @@ const getContent = async (req, res, next) => {
   const { query } = req;
   try {
     const responseBody = await clientService.getContent(reqPath, query);
-    if (responseBody.status === '404') { // Tabelle nicht gefunden
+    if (responseBody.status === '404') {
+      // Tabelle nicht gefunden
       res.status(404).json(responseBody);
       next();
     }
@@ -23,6 +24,7 @@ const getContent = async (req, res, next) => {
 
 const createContent = async (req, res, next) => {
   const { body } = req;
+  const reqPath = req.originalUrl;
   try {
     if (typeof body === 'undefined') {
       // Requestbody hat falsches Format
@@ -30,7 +32,7 @@ const createContent = async (req, res, next) => {
         .status(400)
         .json({ status: 400, message: MESSAGE_FORMAT_ERROR }); // BAD REQUEST
     }
-    const responseBody = await clientService.createContent(body);
+    const responseBody = await clientService.createContent(reqPath, body);
     res.status(201).json(responseBody);
     next();
   } catch (e) {
@@ -40,11 +42,13 @@ const createContent = async (req, res, next) => {
 
 const deleteContent = async (req, res, next) => {
   // Tabellenname lässt sich aus übergebenen Pfad ableiten
-  const reqPath = req.originalUrl;
+  const reqPath = req.originalUrl.replace('/api/', '');
   const { query } = req;
+  console.log(query, reqPath);
   try {
-    const responseBody = await clientService.deleteConent(reqPath, query);
-    if (responseBody.status === '404') { // Tabelle nicht gefunden
+    const responseBody = await clientService.deleteContent(reqPath, query);
+    if (responseBody.status === '404') {
+      // Tabelle nicht gefunden
       res.status(404).json(responseBody);
       next();
     }

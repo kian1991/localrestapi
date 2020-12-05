@@ -18,9 +18,8 @@ const createContent = (table, body) => {
 
   // SQL Statement aufbauen
   const sqlString = `INSERT INTO ${table} (${keys.join(', ')}) 
-  VALUES ('${vals.join('\', \'')}')`;
+  VALUES ('${vals.join("', '")}')`;
 
-  console.log(sqlString);
   return db.exec(sqlString);
 };
 
@@ -33,9 +32,8 @@ const deleteContent = (table, query) => {
     sqlString += ` WHERE ${key} = '${value}';`;
   }
   const statement = db.prepare(sqlString);
-  return statement.all();
+  return statement.run();
 };
-
 
 module.exports = {
   createContent,
