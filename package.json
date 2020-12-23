@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Lokale REST-API. Teil eines Forschungsprojektes für die Universität Oldenburg.",
     "main": "app.js",
+    "bin": "app.js",
     "scripts": {
         "start": "nodemon --exec node app.js",
         "test": "node tests/index.js"
