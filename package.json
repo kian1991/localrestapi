@@ -27,7 +27,7 @@
     "homepage": "https://github.com/kian1991/localrestapi#readme",
     "dependencies": {
         "better-sqlite3": "^6.0.1",
-        "express": "^4.17.1"
+        "express": "^4.17.3"
     },
     "devDependencies": {
         "node-fetch": "^2.6.1",
